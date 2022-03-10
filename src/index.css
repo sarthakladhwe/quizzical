@@ -3,13 +3,12 @@
 body {
   font-family: "Montserrat", sans-serif;
   background-color: #f5f7fb;
-  overflow: hidden;
-  height: 100vh;
+  overflow-x: hidden;
   font-size: 16px;
 }
 
 .first-block {
-  position: absolute;
+  position: fixed;
   width: 500px;
   height: 305px;
   right: -150px;
@@ -20,7 +19,7 @@ body {
 }
 
 .second-block {
-  position: absolute;
+  position: fixed;
   width: 400px;
   height: 400px;
   left: -150px;
@@ -58,10 +57,22 @@ body {
   align-items: center;
 }
 
-.option {
+.difficulty-option {
   cursor: pointer;
   border: 1px solid #293264;
   border-radius: 10px;
   text-align: center;
   padding: 4px 8px;
+}
+
+.quiz-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  z-index: 100;
+}
+
+.quiz-container h2 {
+  z-index: 100;
 }

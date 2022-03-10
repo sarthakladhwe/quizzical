@@ -2,16 +2,16 @@ import React from 'react'
 
 import Option from './Option'
 
-export default function Start({ startQuiz, apiObj, handleChange, listoFCategories }) {
+export default function Start(props) {
 
+    const { startQuiz, apiObj, handleChange, difficultySelected, listoFCategories, difficultyOptions } = props
+    
     const options = listoFCategories.map(cat => (
         <option value={cat.id}>{cat.name}</option>
     ))
 
-    const difficulty = ["Easy", "Medium", "Hard"]
-
-    const difficultyOptions = difficulty.map(diff => (
-        <Option difficulty={diff} handleChange={handleChange} />
+    const difficulty = difficultyOptions.map(option => (
+        <h3 className="difficulty-option" onClick={difficultySelected}>{option.difficulty}</h3>
     ))
 
     return (
@@ -25,7 +25,7 @@ export default function Start({ startQuiz, apiObj, handleChange, listoFCategorie
                     </select>
                 </label>
                 <div className="difficulty">
-                    {difficultyOptions}
+                    {difficulty}
                 </div>
             </form>
             <button className="start-button" onClick={startQuiz}>Start Quiz</button>
