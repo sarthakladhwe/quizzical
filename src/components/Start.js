@@ -11,13 +11,12 @@ export default function Start(props) {
     ))
 
     const difficulty = difficultyOptions.map(option => (
-        <h3 className="difficulty-option" onClick={difficultySelected}>{option.difficulty}</h3>
+        <h3 className="difficulty-option" onClick={difficultySelected} style={{backgroundColor: option.selected && "#D6DBF5"}}>{option.difficulty}</h3>
     ))
 
     return (
         <div className="start-container">
             <h1>Quizzical</h1>
-            <form>
                 <label>
                     Category: 
                     <select value={apiObj.category} onChange={handleChange} name="category">
@@ -27,7 +26,6 @@ export default function Start(props) {
                 <div className="difficulty">
                     {difficulty}
                 </div>
-            </form>
             <button className="start-button" onClick={startQuiz}>Start Quiz</button>
         </div>
     )

@@ -34,10 +34,15 @@ body {
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+  min-width: 500px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+}
+
+.start-container h1 {
+  margin-bottom: 40px;
 }
 
 .start-button {

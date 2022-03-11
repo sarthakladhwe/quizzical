@@ -7,7 +7,7 @@ function App() {
 
   const [startQuiz, setStartQuiz] = React.useState(false)
   // Store the response of all the categories through API 
-  const [categories, setCategories] = React.useState([]);
+  const [categories, setCategories] = React.useState([])
 
   const [questions, setQuestions] = React.useState([])
 
@@ -26,17 +26,13 @@ function App() {
     }
   ])
 
-  const selectedDifficulty = difficultyOptions.forEach(option => (
-    option.selected && option.difficulty
-  ))
-
-  console.log(selectedDifficulty)
-
   const [apiObj, setApiObj] = React.useState({
     category: 19,
     amount: 10,
-    difficulty: selectedDifficulty
+    difficulty: difficultyOptions.filter(e => e.selected)
   })
+
+  console.log(apiObj)
   
   React.useEffect(() => (
     fetch(`https://opentdb.com/api_category.php`)
@@ -45,10 +41,19 @@ function App() {
   ),[])
 
   React.useEffect(() => (
-    fetch(`https://opentdb.com/api.php?amount=${apiObj.amount}&category=${apiObj.category}&difficulty=${apiObj.difficulty}&type=multiple`)
+    fetch(`https://opentdb.com/api.php?amount=${apiObj.amount}&category=${apiObj.category}&difficulty=${apiObj.difficulty[0].difficulty}&type=multiple`)
       .then(res => res.json())
       .then(data => setQuestions(data.results))
   ),[startQuiz])
+
+  React.useEffect(() => (
+    setApiObj(prevObj => (
+      {
+        ...prevObj,
+        difficulty: difficultyOptions.filter(e => e.selected)
+      }
+    ))
+  ),[difficultyOptions])
 
   function handleAPIChange(event) {
     setApiObj(prevObj => (
@@ -65,7 +70,7 @@ function App() {
     )))
   }
 
-  console.log(questions)
+  console.log("questions: ",questions)
 
   const quizzes = questions.map(quiz => (
     <Quiz 
