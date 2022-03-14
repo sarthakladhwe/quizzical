@@ -1,18 +1,14 @@
 import React from 'react'
 
-export default function Quiz({ question, correctAnswer, incorrectAnswer }) {
+import Option from './Option'
 
-    const randomIndex = Math.floor(Math.random() * 4)
-    const optionsArray = incorrectAnswer.slice()
-    optionsArray.splice(randomIndex, 0, correctAnswer)
+export default function Quiz({ question, correctAnswer, incorrectAnswer, optionsArray }) {
 
     return (
         <div className="quiz-container">
             <h2>{question}</h2>
-            <div className="question-options">
-                
-            </div>
-            <hr />
+            <Option correctAnswer={correctAnswer} incorrectAnswer={incorrectAnswer} optionsArray={optionsArray}/>
+            <div className="horizontal-line"></div>
         </div>
     )
 }

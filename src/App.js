@@ -1,4 +1,5 @@
 import React from "react";
+import { nanoid } from 'nanoid'
 
 import Start from "./components/Start";
 import Quiz from "./components/Quiz";
@@ -27,7 +28,7 @@ function App() {
   ])
 
   const [apiObj, setApiObj] = React.useState({
-    category: 19,
+    category: 9,
     amount: 10,
     difficulty: difficultyOptions.filter(e => e.selected)
   })
@@ -40,10 +41,29 @@ function App() {
       .then(data => setCategories(data.trivia_categories))
   ),[])
 
+  function optionsAnswers(correct_Answer, incorrect_Answers) {
+    const randomIndex = Math.floor(Math.random() * 4)
+    const optionsArray = incorrect_Answers.slice()
+    optionsArray.splice(randomIndex, 0, correct_Answer)
+    return optionsArray
+  }
+
   React.useEffect(() => (
     fetch(`https://opentdb.com/api.php?amount=${apiObj.amount}&category=${apiObj.category}&difficulty=${apiObj.difficulty[0].difficulty}&type=multiple`)
       .then(res => res.json())
-      .then(data => setQuestions(data.results))
+      .then(data => {
+        setQuestions(
+          data.results.map(res => (
+            {
+              question: res.question,
+              correct_answer: res.correct_answer,
+              incorrect_answers: res.incorrect_answers,
+              options_array: optionsAnswers(res.correct_answer, res.incorrect_answers),
+              id: nanoid()
+            }
+          ))
+        )
+      })
   ),[startQuiz])
 
   React.useEffect(() => (
@@ -73,10 +93,12 @@ function App() {
   console.log("questions: ",questions)
 
   const quizzes = questions.map(quiz => (
-    <Quiz 
+    <Quiz
+      key={quiz.id}
       question={quiz.question} 
       correctAnswer={quiz.correct_answer} 
-      incorrectAnswer={quiz.incorrect_answers} 
+      incorrectAnswer={quiz.incorrect_answers}
+      optionsArray={quiz.options_array}
     />
   ))
 

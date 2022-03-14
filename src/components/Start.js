@@ -19,9 +19,9 @@ export default function Start(props) {
             <h1>Quizzical</h1>
                 <label>
                     Category: 
-                    <select value={apiObj.category} onChange={handleChange} name="category">
+                    <select value={apiObj.category} onChange={handleChange} name="category" className="categories">
                         {options}
-                    </select>
+                    </select>   
                 </label>
                 <div className="difficulty">
                     {difficulty}

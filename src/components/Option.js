@@ -1,7 +1,14 @@
 import React from "react";
 
-export default function Option({ difficulty, handleChange }) {
+export default function Option({ correctAnswer, incorrectAnswer, optionsArray }) {
+
+    const options = optionsArray.map(option => (
+        <h3 className="question-option">{option}</h3>
+    ))
+
     return(
-        <h3 className="option" onClick={handleChange} value={difficulty} name={difficulty}>{difficulty}</h3>
+        <div className="options-container">
+            {options}
+        </div>
     )
 }
