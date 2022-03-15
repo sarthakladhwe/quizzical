@@ -7,6 +7,8 @@ import Quiz from "./components/Quiz";
 function App() {
 
   const [startQuiz, setStartQuiz] = React.useState(false)
+
+  console.log("start button ", startQuiz)
   // Store the response of all the categories through API 
   const [categories, setCategories] = React.useState([])
 
@@ -68,7 +70,7 @@ function App() {
           ))
         )
       })
-  },[startQuiz])
+  },[apiObj])
 
   // Function to create a random options array to display on UI - merging correct and incorrect answers
   function optionsAnswers(correct_Answer, incorrect_Answers) {
@@ -93,19 +95,21 @@ function App() {
     )))
   }
 
-  function optionsclick(event) {
-    console.log("clicked")
+  function optionsclick(event, id) {
     setQuestions(prevQuestions => prevQuestions.map(question => (
+      question.id === id ?
       {
         ...question,
         option_selected: event.target.innerHTML
-      }
+      } :
+      question
     )))
   }
 
   const quizzes = questions.map(quiz => (
     <Quiz
       key={quiz.id}
+      id={quiz.id}
       question={quiz.question} 
       correctAnswer={quiz.correct_answer} 
       incorrectAnswer={quiz.incorrect_answers}
@@ -122,9 +126,9 @@ function App() {
       <div className="block first-block"></div>
       <div className="block second-block"></div>
       { 
-        !startQuiz && 
+        !startQuiz &&
         <Start 
-          startQuiz={() => setStartQuiz(prevVal => !prevVal)}
+          startQuiz={() => setStartQuiz(prevValue => !prevValue)}
           apiObj={apiObj} 
           listoFCategories={categories} 
           difficultyOptions={difficultyOptions}
