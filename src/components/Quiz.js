@@ -2,7 +2,7 @@ import React from 'react'
 
 import Option from './Option'
 
-export default function Quiz({ question, correctAnswer, incorrectAnswer, optionsArray, optionsClick, optionSelected }) {
+export default function Quiz({ question, correctAnswer, incorrectAnswer, optionsArray, optionsClick, optionSelected, id }) {
 
     return (
         <div className="quiz-container">
@@ -13,6 +13,7 @@ export default function Quiz({ question, correctAnswer, incorrectAnswer, options
                 optionsArray={optionsArray} 
                 optionsClick={optionsClick}
                 optionSelected={optionSelected}
+                id={id}
             />
             <div className="horizontal-line"></div>
         </div>
