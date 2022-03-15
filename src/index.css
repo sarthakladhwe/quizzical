@@ -90,8 +90,10 @@ body {
 .quiz-container {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: start;
+  width: 800px;
+  margin: 0 auto;
   z-index: 100;
 }
 
@@ -126,4 +128,11 @@ body {
   height: 0;
   z-index: 100;
   margin: 20px 0 40px 0;
+}
+
+@media screen and (max-width: 1000px) {
+  .options-container {
+    flex-direction: column;
+    gap: 0;
+  }
 }

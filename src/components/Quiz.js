@@ -7,7 +7,7 @@ export default function Quiz({ question, correctAnswer, incorrectAnswer, options
     return (
         <div className="quiz-container">
             <h2>{question}</h2>
-            <Option 
+            <Option
                 correctAnswer={correctAnswer} 
                 incorrectAnswer={incorrectAnswer} 
                 optionsArray={optionsArray} 
