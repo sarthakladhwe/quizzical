@@ -2,7 +2,7 @@ import React from "react";
 import { nanoid } from 'nanoid'
 
 import Start from "./components/Start";
-import Quiz from "./components/Quiz";
+import Quizzes from "./components/Quizzes";
 
 function App() {
 
@@ -106,19 +106,6 @@ function App() {
     )))
   }
 
-  const quizzes = questions.map(quiz => (
-    <Quiz
-      key={quiz.id}
-      id={quiz.id}
-      question={quiz.question} 
-      correctAnswer={quiz.correct_answer} 
-      incorrectAnswer={quiz.incorrect_answers}
-      optionsArray={quiz.options_array}
-      optionSelected={quiz.option_selected}
-      optionsClick={optionsclick}
-    />
-  ))
-
   console.log(questions)
 
   return (
@@ -138,7 +125,7 @@ function App() {
       }
       { 
         startQuiz &&
-        quizzes
+        <Quizzes questions={questions} optionsClick={optionsclick}/>
       }
     </div>
   );

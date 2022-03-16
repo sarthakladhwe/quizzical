@@ -87,11 +87,11 @@ body {
   padding: 4px 8px;
 }
 
-.quiz-container {
+.quizzes-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: start;
+  align-items: flex-start;
   width: 800px;
   margin: 0 auto;
   z-index: 100;
@@ -103,7 +103,7 @@ body {
 
 .options-container {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   width: 100%;
   gap: 30px;
