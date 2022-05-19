@@ -150,6 +150,14 @@ button:hover {
   background-color: #d6dbf5;
 }
 
+.correct-answer {
+  background-color: greenyellow;
+}
+
+.wrong-answer {
+  background-color: tomato;
+}
+
 .horizontal-line {
   border-top: 1px solid #293264;
   width: 100%;

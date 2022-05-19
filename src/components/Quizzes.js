@@ -18,6 +18,13 @@ export default function Quizzes({ questions, optionsClick, checkAnswers, correct
         />
     ))
 
+    function countCorrectAnswers() {
+        const count = questions.filter(que => (
+            que.option_selected === que.correct_answer
+        ))
+        return count.length;
+    }
+
     return (
         <div className="main-container">
             <h1>Solve</h1>
@@ -25,7 +32,18 @@ export default function Quizzes({ questions, optionsClick, checkAnswers, correct
                 {quizzes}
             </div>
             <div className="sumbit-container">
-                <button className="submit-quiz" onClick={checkAnswers}>Submit</button>
+                {
+                    correctAnswers.checkAnswers ?
+                    (   
+                        <>
+                            <h3></h3>
+                            <button className="submit-quiz" onClick={checkAnswers}>Submit</button>
+                        </>
+                    ) :
+                    (
+                        <button className="submit-quiz" onClick={checkAnswers}>Submit</button>
+                    )
+                }
             </div>
         </div>
     )
