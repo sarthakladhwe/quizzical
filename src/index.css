@@ -43,7 +43,7 @@ body {
 }
 
 .start-container label {
-  margin-right: 10px;
+  padding-left: 10px;
   font-size: 16px;
   font-weight: bold;
 }
@@ -76,14 +76,6 @@ button:hover {
   background: rgba(77,91,158,0.8)
 }
 
-.sumbit-container {
-  width: 100%;
-}
-
-.submit-quiz {
-  margin: 0 auto;
-}
-
 .difficulty {
   display: flex;
   justify-content: center;
@@ -105,7 +97,7 @@ button:hover {
   justify-content: center;
   align-items: flex-start;
   max-width: 800px;
-  margin: 0 auto;
+  margin: 50px auto;
   z-index: 100;
 }
 
@@ -131,10 +123,11 @@ button:hover {
   gap: 30px;
 }
 
-.sumbit-container {
+.submit-container {
+  width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
+  z-index: 100;
 }
 
 .question-option {
@@ -151,11 +144,11 @@ button:hover {
 }
 
 .correct-answer {
-  background-color: greenyellow;
+  background-color: lightgreen;
 }
 
 .wrong-answer {
-  background-color: tomato;
+  background-color: lightcoral;
 }
 
 .horizontal-line {

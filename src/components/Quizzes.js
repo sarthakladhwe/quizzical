@@ -2,7 +2,9 @@ import React from "react";
 
 import Quiz from "./Quiz";
 
-export default function Quizzes({ questions, optionsClick, checkAnswers, correctAnswers }) {
+export default function Quizzes({ questions, optionsClick, startAgain }) {
+
+    const [checkingAnswers, setCheckingAnswers] = React.useState(false)
 
     const quizzes = questions.map(quiz => (
         <Quiz
@@ -14,7 +16,7 @@ export default function Quizzes({ questions, optionsClick, checkAnswers, correct
           optionsArray={quiz.options_array}
           optionSelected={quiz.option_selected}
           optionsClick={optionsClick}
-          correctAnswers={correctAnswers}
+          checkingAnswers={checkingAnswers}
         />
     ))
 
@@ -22,29 +24,36 @@ export default function Quizzes({ questions, optionsClick, checkAnswers, correct
         const count = questions.filter(que => (
             que.option_selected === que.correct_answer
         ))
-        return count.length;
+        return count.length
     }
 
     return (
         <div className="main-container">
-            <h1>Solve</h1>
+            <h2 style={{margin: "0 auto 20px", zIndex: "100", borderBottom: "2px solid lightblue"}}>
+                Select the correct answer!
+            </h2>
             <div className="quizzes-container">
                 {quizzes}
             </div>
-            <div className="sumbit-container">
-                {
-                    correctAnswers.checkAnswers ?
-                    (   
-                        <>
-                            <h3></h3>
-                            <button className="submit-quiz" onClick={checkAnswers}>Submit</button>
-                        </>
-                    ) :
-                    (
-                        <button className="submit-quiz" onClick={checkAnswers}>Submit</button>
-                    )
-                }
-            </div>
+            {
+                checkingAnswers ?
+                (   
+                    <div className="submit-container">
+                        <h3>You've got {countCorrectAnswers()}/10 questions correct!</h3>
+                        <button className="submit-quiz" onClick={startAgain}>Start Again</button>
+                    </div>
+                ) :
+                (   
+                    <div className="submit-container">
+                        <button 
+                            className="submit-quiz" 
+                            onClick={() => setCheckingAnswers(prev => !prev)}
+                        >
+                            Check My Answers
+                        </button>
+                    </div>
+                )
+            }
         </div>
     )
 }

@@ -7,14 +7,10 @@ import Quizzes from "./components/Quizzes";
 function App() {
 
   const [startQuiz, setStartQuiz] = React.useState(false)
-
-  console.log("start button ", startQuiz)
   // Store the response of all the categories through API 
   const [categories, setCategories] = React.useState([])
 
   const [questions, setQuestions] = React.useState([])
-
-  const [correctAnswers, setCorrectAnswers] = React.useState([])
 
   const [difficultyOptions, setDifficultyOptions] = React.useState([
     {
@@ -74,15 +70,6 @@ function App() {
       })
   },[apiObj])
 
-  function checkAnswers() {
-    setCorrectAnswers({
-      checkAnswers: true,
-      correctAnswers: questions.filter(question => (
-        question.correct_answer === question.option_selected
-      ))
-    })
-  }
-
   // Function to create a random options array to display on UI - merging correct and incorrect answers
   function optionsAnswers(correct_Answer, incorrect_Answers) {
     const randomIndex = Math.floor(Math.random() * 4)
@@ -117,6 +104,13 @@ function App() {
     )))
   }
 
+  function startAgain() {
+    setStartQuiz(prevValue => !prevValue)
+    setDifficultyOptions(prev => prev.map(diff => (
+      diff.difficulty === "easy" ? {...diff, selected: true} : {...diff, selected: false}
+    )))
+  }
+
   return (
     <div className="App">
       <div className="block first-block"></div>
@@ -126,7 +120,7 @@ function App() {
         <Start
           key={nanoid()}
           startQuiz={() => setStartQuiz(prevValue => !prevValue)}
-          apiObj={apiObj} 
+          apiObj={apiObj}
           listoFCategories={categories} 
           difficultyOptions={difficultyOptions}
           handleChange={handleAPIChange}
@@ -137,10 +131,9 @@ function App() {
         startQuiz &&
         <Quizzes 
           key={nanoid()} 
-          questions={questions} 
-          checkAnswers={checkAnswers} 
-          correctAnswers={correctAnswers} 
+          questions={questions}
           optionsClick={optionsClick}
+          startAgain={startAgain}
         />
       }
     </div>
