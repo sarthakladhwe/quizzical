@@ -14,6 +14,8 @@ function App() {
 
   const [questions, setQuestions] = React.useState([])
 
+  const [correctAnswers, setCorrectAnswers] = React.useState([])
+
   const [difficultyOptions, setDifficultyOptions] = React.useState([
     {
         difficulty: "easy",
@@ -72,6 +74,15 @@ function App() {
       })
   },[apiObj])
 
+  function checkAnswers() {
+    setCorrectAnswers({
+      checkAnswers: true,
+      correctAnswers: questions.filter(question => (
+        question.correct_answer === question.option_selected
+      ))
+    })
+  }
+
   // Function to create a random options array to display on UI - merging correct and incorrect answers
   function optionsAnswers(correct_Answer, incorrect_Answers) {
     const randomIndex = Math.floor(Math.random() * 4)
@@ -95,7 +106,7 @@ function App() {
     )))
   }
 
-  function optionsclick(event, id) {
+  function optionsClick(event, id) {
     setQuestions(prevQuestions => prevQuestions.map(question => (
       question.id === id ?
       {
@@ -106,26 +117,31 @@ function App() {
     )))
   }
 
-  console.log(questions)
-
   return (
     <div className="App">
       <div className="block first-block"></div>
       <div className="block second-block"></div>
       { 
         !startQuiz &&
-        <Start 
+        <Start
+          key={nanoid()}
           startQuiz={() => setStartQuiz(prevValue => !prevValue)}
           apiObj={apiObj} 
           listoFCategories={categories} 
           difficultyOptions={difficultyOptions}
           handleChange={handleAPIChange}
           difficultySelected={difficultySelected}
-          />
+        />
       }
       { 
         startQuiz &&
-        <Quizzes questions={questions} optionsClick={optionsclick}/>
+        <Quizzes 
+          key={nanoid()} 
+          questions={questions} 
+          checkAnswers={checkAnswers} 
+          correctAnswers={correctAnswers} 
+          optionsClick={optionsClick}
+        />
       }
     </div>
   );
